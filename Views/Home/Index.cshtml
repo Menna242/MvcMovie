@@ -1,0 +1,44 @@
+﻿@model IEnumerable<MvcMovie.Models.Movie>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="container mt-5" >
+    <div class="jumbotron text-center bg-black text-danger p-5 rounded-3 shadow-sm">
+        <h1 class="display-4">Welcome to Movie App </h1>
+        <p class="lead">Manage your movies, explore details, and keep track of your favorite films.</p>
+        <a href="@Url.Action("Index", "Movies")" class="btn btn-danger btn-lg">View Movies</a>
+    </div>
+
+    <h2></h2>
+    <h2></h2>
+    <h2></h2>
+    <div class="row">
+        @foreach (var movie in Model)
+        {
+            <div class="col-md-4 mb-4  ">
+                <div class="card h-100 shadow-sm bg-dark text-white ">
+                    <img src="@movie.Photo" class="card-img-top img-fluid" alt="@movie.Title" style="height:300px; object-fit:cover;" />
+                    <div class="card-body">
+                        <h5 class="card-title">@movie.Title</h5>
+                        <p class="card-text">
+                            Genre: @movie.Genre <br />
+                            Release Date: @movie.ReleaseDate.ToShortDateString() <br />
+                            Price: @Html.DisplayFor(m => @movie.Price) <br />
+
+
+                            Rating:
+                            @for (int i = 0; i < (movie.Rating?.Length ?? 0); i++)
+                            {
+                                <span style="color: gold; font-size: 1.2rem;">&#9733;</span>
+                            }
+
+                        </p>
+                        <a href="@Url.Action("Details", "Movies", new { id = movie.Id })" class="btn text-white  bg-danger ">View Details</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
